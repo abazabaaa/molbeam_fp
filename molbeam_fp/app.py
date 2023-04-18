@@ -6,11 +6,12 @@ import glob
 import numpy as np
 import pyarrow.feather as feather
 import sys
-from . import molbeam
-from . import similarity
+import molbeam
+import similarity
 
 dataset_dir = sys.argv[1]
 output_dir = sys.argv[2]
+csv_file = '/Users/tgraham/Temple/tau_paper_tests/testing_things/queries_fp.csv'
 
 def process_batch_fp(query_names, query_matrix, mol_batch):
     fingerprints = mol_batch.column('achiral_fp')
@@ -29,10 +30,15 @@ def export_results(result_list, query, threshold):
 
 
 def main():
-    query = [
-        ('PV-004207401484', 'CC(C)C(C#N)C(=O)N1CCCN(C(=O)CSc2cnn(C)c2)CC1C'),
-        ('PV-005694609843', 'CC(C)C(C#N)C(=O)N1CCCC(CN(C)C(=O)c2ncnc3c2CCC3)C1')
-    ]
+    df = pd.read_csv(csv_file)
+    query = list(df.itertuples(index=False, name=None))
+    #query1 = [
+        #('PV-004207401484', 'CC(C)C(C#N)C(=O)N1CCCN(C(=O)CSc2cnn(C)c2)CC1C'),
+        #('PV-005694609843', 'CC(C)C(C#N)C(=O)N1CCCC(CN(C)C(=O)c2ncnc3c2CCC3)C1')
+    #]
+    #print(query)
+    #print(query1)
+    #print(query == query1)
     query_names = [q[0] for q in query]
     query_matrix = similarity.format_query(query)
     columns = ["idnumber", "standard_smiles", "achiral_fp"]

@@ -35,8 +35,9 @@ def stopwatch(method):
 
 
 class InputStreamReader:
-    def __init__(self, file_stream):
+    def __init__(self, file_stream, include_columns):
         self.file_stream = file_stream
+        self.include_columns = include_columns
         self._stream = None
 
     def batches(self):
@@ -58,7 +59,7 @@ class InputStreamReader:
         if not self._stream:
             read_options = pa.csv.ReadOptions(block_size=2097152)
             parse_options = pa.csv.ParseOptions(delimiter='\t')
-            convert_options = pa.csv.ConvertOptions(include_columns=include_columns)
+            convert_options = pa.csv.ConvertOptions(include_columns=self.include_columns)
             self._stream = pa.csv.open_csv(
                 self.file_stream, read_options=read_options,
                 parse_options=parse_options,
@@ -77,7 +78,7 @@ def csv_stream_to_parquet_batch_writer(include_columns, \
     
     print('Initiating stream.')
     
-    input_stream_reader = InputStreamReader(input_file_to_stream)
+    input_stream_reader = InputStreamReader(input_file_to_stream, include_columns)
     
     outfiles_list = []
     

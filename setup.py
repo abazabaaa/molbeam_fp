@@ -11,6 +11,13 @@ setup(
         "rdkit",
         "pandas"
     ],
+    entry_points={
+        'console_scripts': [
+            'molbeam_search=molbeam_fp.app:main',
+            'large_csv_to_parquet=molbeam_fp.large_csv_to_parquet_chunks:main',
+            'process_smiles_to_parquet_fp=molbeam_fp.process_smiles_to_fp_pq:main'
+        ],
+    },
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: MIT License",

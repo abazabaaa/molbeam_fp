@@ -1,3 +1,4 @@
+LICENSE
 README.md
 setup.py
 molbeam_fp/__init__.py
@@ -10,5 +11,6 @@ molbeam_fp/similarity.py
 molbeam_fp.egg-info/PKG-INFO
 molbeam_fp.egg-info/SOURCES.txt
 molbeam_fp.egg-info/dependency_links.txt
+molbeam_fp.egg-info/entry_points.txt
 molbeam_fp.egg-info/requires.txt
 molbeam_fp.egg-info/top_level.txt

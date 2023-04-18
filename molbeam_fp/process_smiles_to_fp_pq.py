@@ -85,27 +85,31 @@ smiles_column = 'smiles'
 dataset_format = 'parquet'
 n_jobs = 5
 
-dataset = ds.dataset(dataset_dir, format=dataset_format)
+def main():
+    dataset = ds.dataset(dataset_dir, format=dataset_format)
 
-# Create a list of fragments that are not memory loaded
-fragments = [file for file in dataset.get_fragments()]
+    # Create a list of fragments that are not memory loaded
+    fragments = [file for file in dataset.get_fragments()]
 
-total_frags = len(fragments)
-print(f'There are a total of {len(fragments)} fragments in the dataset: {output_dir}')
+    total_frags = len(fragments)
+    print(f'There are a total of {len(fragments)} fragments in the dataset: {output_dir}')
 
-for count,element in tenumerate(fragments, start=0, total=None):
-    
+    for count,element in tenumerate(fragments, start=0, total=None):
+        
 
-    console.print(f'Starting fragment dataset: {count} in {dataset_dir}', style="blue bold")
-    #cast the fragment as a pandas df
-    df = element.to_table().to_pandas()
-    df2 = prep_parquet_db(df, n_jobs, smiles_column)
+        console.print(f'Starting fragment dataset: {count} in {dataset_dir}', style="blue bold")
+        #cast the fragment as a pandas df
+        df = element.to_table().to_pandas()
+        df2 = prep_parquet_db(df, n_jobs, smiles_column)
 
-    console.print(f'There are a total of {len(df2)} valid smiles strings with fingerprints', style="green bold")
+        console.print(f'There are a total of {len(df2)} valid smiles strings with fingerprints', style="green bold")
 
-    table = pa.Table.from_pandas(df2, preserve_index=False)
+        table = pa.Table.from_pandas(df2, preserve_index=False)
 
-    
-    #write the molchunk to disk
-    pq.write_table(table, f'{output_dir}/{out_prefix}_{count}.parquet')
-    console.print(f'Wrote parquet to {output_dir}/{out_prefix}_{count}.parquet', style="purple bold")
+        
+        #write the molchunk to disk
+        pq.write_table(table, f'{output_dir}/{out_prefix}_{count}.parquet')
+        console.print(f'Wrote parquet to {output_dir}/{out_prefix}_{count}.parquet', style="purple bold")
+
+if __name__ == '__main__':
+    main()

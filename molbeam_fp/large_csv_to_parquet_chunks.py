@@ -96,14 +96,18 @@ def csv_stream_to_parquet_batch_writer(include_columns, \
     return outfile
 
 
+def main():
 
-include_columns = [column1, column2]
+    include_columns = [column1, column2]
 
-outfiles = csv_stream_to_parquet_batch_writer(include_columns, \
-                     file, \
-                     output_dir, \
-                     output_prefix, \
-                     column1)
+    outfiles = csv_stream_to_parquet_batch_writer(include_columns, \
+                         file, \
+                         output_dir, \
+                         output_prefix, \
+                         column1)
 
-print(outfiles)
+    print(outfiles)
+
+if __name__ == '__main__':
+    main()
 

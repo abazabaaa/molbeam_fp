@@ -8,7 +8,7 @@ import numpy.ma as ma
 
 from scipy import sparse
 
-import mole
+from . import mole
 
 
 def stopwatch(method):

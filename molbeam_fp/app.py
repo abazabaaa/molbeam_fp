@@ -6,8 +6,8 @@ import glob
 import numpy as np
 import pyarrow.feather as feather
 import sys
-import molbeam
-import similarity
+from . import molbeam
+from . import similarity
 
 dataset_dir = sys.argv[1]
 output_dir = sys.argv[2]

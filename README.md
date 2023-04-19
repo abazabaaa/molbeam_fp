@@ -6,10 +6,18 @@ The query engine uses Arrow to access and process the fingerprints to determine 
 
 The results are saved as a parquet and can be directly accessed as a dataframe through Pandas or Apache Arrow.
 
+Steps for utilizing the scripts:
 
+1) First create a conda enviroment for running the scripts. Code was only tested with python 3.8.
 
 <pre>
 conda create --name molbeam_fp python=3.8
 conda activate molbeam_fp
+</pre>
+
+2) install dependencies.
+
+<pre>
+pip install pyarrow duckdb datamol rdkit pandas
 </pre>
 

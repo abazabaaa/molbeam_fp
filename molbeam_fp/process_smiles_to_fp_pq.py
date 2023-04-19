@@ -81,9 +81,9 @@ def prep_parquet_db(df, n_jobs, smiles_column):
 dataset_dir = sys.argv[1]
 output_dir = sys.argv[2]
 out_prefix = sys.argv[3]
-smiles_column = 'smiles'
+smiles_column = sys.argv[4]
 dataset_format = 'parquet'
-n_jobs = 5
+n_jobs = int(sys.argv[5])
 
 def main():
     dataset = ds.dataset(dataset_dir, format=dataset_format)

@@ -69,13 +69,15 @@ python app.py /path/to/parquet_fps/output_dir /path/to/search_results_dir /path/
 
 /path/to/parquet_fps/output_dir = The directory created in the previous step that contains your parquet fingerprint library.
 \
-/path/to/search_results_dir = The directory where the results of the search will be deposited. The output will be called "query_out.pq"
+/path/to/search_results_dir = The directory where the results of the search will be deposited. The output will be called "query_out.pq" and there is also an equivalent CSV file written for easier inspection.
 \
 /path/to/query_file.csv = The csv file with the query (using the format shown above).
 \
 fingerprint_size = number of bits in morgan fingerprint; should be consistent with fp library (256, 512, 1024, etc)
 \
 fingerprint_radius = radius used in generation of morgan fingerprints; should be consistent with fp library (2, 3, etc)
+
+7) The output file will contain 4 columns with the first two being the ID and SMILES string of the hit compounds and then the final columns being labeled as "query1_score", "query2_score" where query1 is the name/ID of the compound(s) queried. Numbers closer to zero represent more similar structures.
 
 
 

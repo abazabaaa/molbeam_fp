@@ -62,7 +62,7 @@ names,smiles
 PV-004207401484,CC(C)C(C#N)C(=O)N1CCCN(C(=O)CSc2cnn(C)c2)CC1C
 PV-005694609843,CC(C)C(C#N)C(=O)N1CCCC(CN(C)C(=O)c2ncnc3c2CCC3)C1
 </pre>
-\
+Commandline for running fingerprint query:
 <pre>
 python app.py /path/to/parquet_fps/output_dir /path/to/search_results_dir /path/to/query_file.csv fingerprint_size fingerprint_radius
 </pre>

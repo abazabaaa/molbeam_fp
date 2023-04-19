@@ -95,6 +95,7 @@ def main():
     print(len(bigdata))
     table = pa.Table.from_pandas(bigdata)
     pq.write_table(table, f'{output_dir}/query_out.parquet')
+    bigdata.to_csv(f'{output_dir}/query_out.csv', index=False)
     print(f'Wrote results to: {output_dir}/query_out.parquet')
 
 if __name__ == '__main__':

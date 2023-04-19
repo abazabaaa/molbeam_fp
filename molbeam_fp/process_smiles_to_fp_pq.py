@@ -26,9 +26,8 @@ def _preprocess(i, row):
         mol = dm.standardize_mol(mol, disconnect_metals=False, normalize=True, reionize=True, uncharge=False, stereo=True)
 
         fingerprint_function = rdMolDescriptors.GetMorganFingerprintAsBitVect
-        
-        pars2 = { "radius": 2,
-                         "nBits": 512,
+        pars2 = { "radius": radius,
+                         "nBits": fp_size,
                          "invariants": [],
                          "fromAtoms": [],
                          "useChirality": False,
@@ -52,7 +51,7 @@ def _preprocess(i, row):
 
         return row
 
-def prep_parquet_db(df, n_jobs, smiles_column):
+def prep_parquet_db(df, n_jobs, smiles_column, fp_size, radius):
     
     '''Take a cleaned df that contains protonated/tautomerized smiles, 
     the vendor database ID and a canonical ID -- number indicates protomer/taut
@@ -84,6 +83,8 @@ out_prefix = sys.argv[3]
 smiles_column = sys.argv[4]
 dataset_format = 'parquet'
 n_jobs = int(sys.argv[5])
+fp_size = int(sys.argv[6])
+radius = int(sys.argv[7])
 
 def main():
     dataset = ds.dataset(dataset_dir, format=dataset_format)
@@ -100,7 +101,7 @@ def main():
         console.print(f'Starting fragment dataset: {count} in {dataset_dir}', style="blue bold")
         #cast the fragment as a pandas df
         df = element.to_table().to_pandas()
-        df2 = prep_parquet_db(df, n_jobs, smiles_column)
+        df2 = prep_parquet_db(df, n_jobs, smiles_column, fp_size, radius)
 
         console.print(f'There are a total of {len(df2)} valid smiles strings with fingerprints', style="green bold")
 

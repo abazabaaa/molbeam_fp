@@ -16,8 +16,10 @@ import pathlib
 
 file = sys.argv[1]
 output_dir = sys.argv[2]
-column1 = 'smiles'
-column2 = 'idnumber'
+name_of_smiles_col = sys.argv[3]
+name_of_column_w_ids = sys.argv[4]
+#column1 = 'smiles'
+#column2 = 'idnumber'
 
 output_prefix = pathlib.Path(file).stem
 
@@ -99,13 +101,13 @@ def csv_stream_to_parquet_batch_writer(include_columns, \
 
 def main():
 
-    include_columns = [column1, column2]
+    include_columns = [name_of_smiles_col, name_of_column_w_ids]
 
     outfiles = csv_stream_to_parquet_batch_writer(include_columns, \
                          file, \
                          output_dir, \
                          output_prefix, \
-                         column1)
+                         name_of_smiles_col)
 
     print(outfiles)
 

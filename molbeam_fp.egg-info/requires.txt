@@ -1,5 +1,0 @@
-pyarrow
-duckdb
-datamol
-rdkit
-pandas

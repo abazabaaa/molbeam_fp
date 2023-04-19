@@ -45,11 +45,16 @@ python process_smiles_to_fp_pq.py /path/to/parquet_dataset/from_csv_file /path/t
 </pre>
 
 /path/to/parquet_dataset/from_csv_file = a directory that has been previously created and is meant to store the output parquet files from the csv in previous step.
+\
 /path/to/parquet_fps/output_dir = a directory that has been previously created and is meant to store the dataset containing the parquet with fingerprints. \
-parquet_output_file_name_prefix = prefix of the filename for each parquet created in this step \
+parquet_output_file_name_prefix = prefix of the filename for each parquet created in this step
+\
 num_cpu_cores_to_use = number of cpu cores datamol is allowed to use during fingerprint generation
+\
 fingerprint_size = number of bits in morgan fingerprint (256, 512, 1024, etc)
+\
 fingerprint_radius = radius used in generation of morgan fingerprints (2, 3, etc)
+\
 
 
 

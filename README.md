@@ -56,14 +56,27 @@ fingerprint_size = number of bits in morgan fingerprint (256, 512, 1024, etc)
 fingerprint_radius = radius used in generation of morgan fingerprints (2, 3, etc)
 \
 
-6) Run a fingerprint query with multiple queries. The input queries must be saved into a csv (comma seperated)
+6) Run a fingerprint query with multiple queries. The input queries must be saved into a csv (comma seperated) with the format shown below.
 
 <pre>
 names,smiles
 PV-004207401484,CC(C)C(C#N)C(=O)N1CCCN(C(=O)CSc2cnn(C)c2)CC1C
 PV-005694609843,CC(C)C(C#N)C(=O)N1CCCC(CN(C)C(=O)c2ncnc3c2CCC3)C1
 </pre>
+\
+\
+<pre>
+python app.py /path/to/parquet_fps/output_dir /path/to/search_results_dir /path/to/query_file.csv fingerprint_size fingerprint_radius
 
-
+/path/to/parquet_fps/output_dir = The directory created in the previous step that contains your parquet fingerprint library.
+\
+/path/to/search_results_dir = The directory where the results of the search will be deposited. The output will be called "query_out.pq"
+\
+/path/to/query_file.csv = The csv file with the query (using the format shown above).
+\
+fingerprint_size = number of bits in morgan fingerprint; should be consistent with fp library (256, 512, 1024, etc)
+\
+fingerprint_radius = radius used in generation of morgan fingerprints; should be consistent with fp library (2, 3, etc)
+\
 
 

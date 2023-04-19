@@ -18,7 +18,7 @@ conda activate molbeam_fp
 2) Install dependencies.
 
 <pre>
-pip install pyarrow duckdb datamol rdkit pandas
+pip install pyarrow duckdb datamol rdkit pandas rich
 </pre>
 
 3) Clone the repo.

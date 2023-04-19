@@ -38,7 +38,7 @@ python large_csv_to_fp_pq.py /path/to/file.csv /path/to/output_dir smiles_column
 smiles_column_name = the name of the smiles column found within the csv file. \
 compound_id_col_name = the name of the column that contains the compound IDs or names.
 
-5) Convert the SMILES parquet dataset into a parquet dataset that contains morgan fingerprints.
+5) Convert the SMILES parquet dataset into a parquet dataset that contains morgan fingerprints. You must create the directory where the parquet files will be saved to.
 
 <pre>
 python process_smiles_to_fp_pq.py /path/to/parquet_dataset/from_csv_file /path/to/parquet_fps/output_dir parquet_output_file_name_prefix name_of_smiles_column num_cpu_cores_to_use fingerprint_size fingerprint_radius
@@ -55,6 +55,14 @@ fingerprint_size = number of bits in morgan fingerprint (256, 512, 1024, etc)
 \
 fingerprint_radius = radius used in generation of morgan fingerprints (2, 3, etc)
 \
+
+6) Run a fingerprint query with multiple queries. The input queries must be saved into a csv (comma seperated)
+
+<pre>
+names,smiles
+PV-004207401484,CC(C)C(C#N)C(=O)N1CCCN(C(=O)CSc2cnn(C)c2)CC1C
+PV-005694609843,CC(C)C(C#N)C(=O)N1CCCC(CN(C)C(=O)c2ncnc3c2CCC3)C1
+</pre>
 
 
 

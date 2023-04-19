@@ -11,7 +11,7 @@ import similarity
 
 dataset_dir = sys.argv[1]
 output_dir = sys.argv[2]
-csv_file = '/Users/tgraham/Temple/tau_paper_tests/testing_things/queries_fp.csv'
+csv_file = sys.argv[3]
 
 def process_batch_fp(query_names, query_matrix, mol_batch):
     fingerprints = mol_batch.column('achiral_fp')
@@ -19,31 +19,13 @@ def process_batch_fp(query_names, query_matrix, mol_batch):
     fp_distance = similarity.fast_jaccard(fp_matrix_in, query_matrix)
     return fp_distance,  mol_batch.column('standard_smiles'), mol_batch.column('idnumber')
 
-
-def export_results(result_list, query, threshold):
-    result_df = pd.concat(result_list)
-    result_df = result_df.sort_values(by=['Z4291231744', 'Z4418909220', 'Z2768891723', 'PV-003140863219', 'Z4591645167'], ascending=True)
-    print(result_df.head(10))
-    table = pa.Table.from_pandas(result_df)
-    pq.write_table(table, f'{output_dir}/query_out.parquet')
-    print(f'Wrote results to: {output_dir}/query_out.parquet')
-
-
 def main():
     df = pd.read_csv(csv_file)
     query = list(df.itertuples(index=False, name=None))
-    #query1 = [
-        #('PV-004207401484', 'CC(C)C(C#N)C(=O)N1CCCN(C(=O)CSc2cnn(C)c2)CC1C'),
-        #('PV-005694609843', 'CC(C)C(C#N)C(=O)N1CCCC(CN(C)C(=O)c2ncnc3c2CCC3)C1')
-    #]
-    #print(query)
-    #print(query1)
-    #print(query == query1)
     query_names = [q[0] for q in query]
     query_matrix = similarity.format_query(query)
     columns = ["idnumber", "standard_smiles", "achiral_fp"]
     results = []
-    # print('Searching enamine database of 3.8M molecules...')
 
     dataset = dataset_dir
     lis = glob.glob(f'{dataset}/*.parquet')

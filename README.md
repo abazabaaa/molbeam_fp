@@ -33,9 +33,9 @@ git clone https://github.com/abazabaaa/molbeam_fp.git
 python large_csv_to_fp_pq.py /path/to/file.csv /path/to/output_dir smiles_column_name compound_id_col_name
 </pre>
 
-/path/to/file.csv = absolute path to csv file. Can be compressed (bz2).
-/path/to/output_dir = a directory that has been previously created and is meant to store the output parquet files from the csv.
-smiles_column_name = the name of the smiles column found within the csv file.
+/path/to/file.csv = absolute path to csv file. Can be compressed (bz2). \
+/path/to/output_dir = a directory that has been previously created and is meant to store the output parquet files from the csv. \
+smiles_column_name = the name of the smiles column found within the csv file. \
 compound_id_col_name = the name of the column that contains the compound IDs or names.
 
 5) Convert the SMILES parquet dataset into a parquet dataset that contains morgan fingerprints.

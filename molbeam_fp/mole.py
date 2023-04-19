@@ -4,14 +4,14 @@ from rdkit.Chem import rdMolDescriptors
 dm.disable_rdkit_log()
 
 
-def smiles_to_fingerprint(smiles):
+def smiles_to_fingerprint(smiles, fp_size, fp_radius):
 
     mol = dm.to_mol(str(smiles), ordered=True)
 
     fingerprint_function = rdMolDescriptors.GetMorganFingerprintAsBitVect
     pars = {
-        "radius": 2,
-        "nBits": 512,
+        "radius": fp_radius,
+        "nBits": fp_size,
         "invariants": [],
         "fromAtoms": [],
         "useChirality": False,

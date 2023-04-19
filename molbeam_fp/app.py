@@ -12,10 +12,12 @@ import similarity
 dataset_dir = sys.argv[1]
 output_dir = sys.argv[2]
 csv_file = sys.argv[3]
+fp_size = int(sys.argv[4])
+fp_radius = int(sys.argv[5])
 
 def process_batch_fp(query_names, query_matrix, mol_batch):
     fingerprints = mol_batch.column('achiral_fp')
-    fp_matrix_in = similarity.build_fingerprint_matrix(fingerprints)
+    fp_matrix_in = similarity.build_fingerprint_matrix(fingerprints, fp_size)
     fp_distance = similarity.fast_jaccard(fp_matrix_in, query_matrix)
     return fp_distance,  mol_batch.column('standard_smiles'), mol_batch.column('idnumber')
 
@@ -23,7 +25,7 @@ def main():
     df = pd.read_csv(csv_file)
     query = list(df.itertuples(index=False, name=None))
     query_names = [q[0] for q in query]
-    query_matrix = similarity.format_query(query)
+    query_matrix = similarity.format_query(query, fp_size, fp_radius)
     columns = ["idnumber", "standard_smiles", "achiral_fp"]
     results = []
 

@@ -80,10 +80,15 @@ def prep_parquet_db(df, n_jobs, smiles_column, fp_size, radius):
 dataset_dir = sys.argv[1]
 output_dir = sys.argv[2]
 out_prefix = sys.argv[3]
+
+#name of smiles column in parquet dataset
 smiles_column = sys.argv[4]
 dataset_format = 'parquet'
+#number of cpu cores to use for joblib
 n_jobs = int(sys.argv[5])
+#size of fingerprint to use for rdkit
 fp_size = int(sys.argv[6])
+#radius of fingerprint to use for rdkit
 radius = int(sys.argv[7])
 
 def main():

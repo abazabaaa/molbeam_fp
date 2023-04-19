@@ -7,8 +7,6 @@ The query engine uses Arrow to access and process the fingerprints to determine 
 The results are saved as a parquet and can be directly accessed as a dataframe through Pandas or Apache Arrow.
 
 <pre>
-```
 test test test
-```
 </pre>
 

@@ -1,10 +1,10 @@
 molbeam_fp
 
-molbeam_fp is a collection of python scripts that function to serve as tools for generating a library of morgan fingerprints and an engine for running queries on that library. The fingerprint library is built using RDKit fingerprints and datamol for normalizing/processing input smiles. The resulting fingerprints are then stored as chunked arrays in Arrow tables along with the original SMILES and compound ID. These tables are then saved as parquet files for use during fingerprint queries. 
+molbeam_fp is a collection of python scripts that function to serve as tools for generating a library of morgan fingerprints and an engine for running queries on that library. The fingerprint library is built using RDKit fingerprints and datamol for normalizing/processing input smiles. The resulting fingerprints are then stored as chunked arrays in Apache Arrow tables along with the original SMILES and compound ID. These tables are then saved as parquet files for use during fingerprint queries. 
 
-The query engine uses Apache Arrow to access and process the fingerprints to determine the jaccard distance between each member of the library and the query or queries. The results are then queried with duckdb and matches with good scores (values closer to zero are better) as determined by a predefined quantile are saved to a new dataframe. 
+The query engine uses Apache Arrow to access and process the fingerprints to determine the jaccard distance between each member of the library and the query or queries. The results are then queried with duckdb and matches with good scores, (values closer to zero are better) as determined by a predefined quantile, are saved to a new dataframe. 
 
-The results are saved as a parquet (and a csv for easier viewing) and can be directly accessed as a dataframe through Pandas or Apache Arrow. If your fingerprint database is split over several directories, then the query process can be parallelized (code not provided here). In our lab, we have split the Enamine REAL (3.6B) across ~4000 directories and run parallel queries on each fingerprint dataset where the results are aggregated in post processing steps. 
+The resulting dataframe is saved as a parquet (and a csv for easier viewing) and can be later accessed as a dataframe through Pandas or Apache Arrow. If your fingerprint database is split over several directories, then the query process can be parallelized (code not provided here). In our lab, we have split the Enamine REAL (3.6B) across ~4000 directories and run parallel queries on each fingerprint dataset where the results are aggregated in post processing steps. 
 
 Steps for utilizing the scripts:
 
@@ -27,7 +27,7 @@ pip install pyarrow duckdb datamol rdkit pandas rich
 git clone https://github.com/abazabaaa/molbeam_fp.git
 </pre>
 
-4) Convert the SMILES csv into a parquet dataset. An example csv is provided along with expected output. You must create a directory for the output parquet files. Based on the settings in the script the output parquet is roughly ~30k smiles strings per parquet.
+4) Convert the SMILES csv into a parquet dataset. You must create a directory for the output parquet files. Based on the settings in the script the output parquets are roughly ~30k smiles strings.
 
 <pre>
 python large_csv_to_fp_pq.py /path/to/file.csv /path/to/output_dir smiles_column_name compound_id_col_name
@@ -73,11 +73,18 @@ python app.py /path/to/parquet_fps/output_dir /path/to/search_results_dir /path/
 \
 /path/to/query_file.csv = The csv file with the query (using the format shown above).
 \
-fingerprint_size = number of bits in morgan fingerprint; should be consistent with fp library (256, 512, 1024, etc)
+fingerprint_size = number of bits in morgan fingerprint; should be consistent with fp library (256, 512, 1024, etc).
 \
-fingerprint_radius = radius used in generation of morgan fingerprints; should be consistent with fp library (2, 3, etc)
+fingerprint_radius = radius used in generation of morgan fingerprints; should be consistent with fp library (2, 3, etc).
 
 7) The output file will contain 4 columns with the first two being the ID and SMILES string of the hit compounds and then the final columns being labeled as "query1_score", "query2_score" where query1 is the name/ID of the compound(s) queried. Numbers closer to zero represent more similar structures.
+\
+A demo/test is provided in the repo. Within the molbeam_test directory is a cxsmiles file containing ~1M smiles strings. Each directory within the molbeam_test dir has the intermediate parquet database files. The molbeam_test/query_results contains example output. The queries for the demo are taken directly from the cxsmiles file in an attempt to demonstrate that the fingerprint search will identify them and related compounds. 
+\
+In order to run the tests execute the following:
+<pre>
+bash run_all_test.sh
+</pre>
 
 
 

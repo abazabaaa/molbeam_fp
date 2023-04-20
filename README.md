@@ -81,7 +81,7 @@ fingerprint_radius = radius used in generation of morgan fingerprints; should be
 
 A demo/test is provided in the repo. Within the molbeam_test directory is a cxsmiles file containing ~1M smiles strings. Each directory within the molbeam_test dir has the intermediate parquet database files. The molbeam_test/query_results contains example output. The queries for the demo are taken directly from the cxsmiles file in an attempt to demonstrate that the fingerprint search will identify them and related compounds. 
 \
-In order to run the tests execute the following:
+In order to run the tests execute the following (The process will use 5 cpu cores; this can be modified in the script if needed):
 <pre>
 bash run_all_test.sh
 </pre>

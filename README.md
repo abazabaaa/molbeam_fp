@@ -78,7 +78,7 @@ fingerprint_size = number of bits in morgan fingerprint; should be consistent wi
 fingerprint_radius = radius used in generation of morgan fingerprints; should be consistent with fp library (2, 3, etc).
 
 7) The output file will contain 4 columns with the first two being the ID and SMILES string of the hit compounds and then the final columns being labeled as "query1_score", "query2_score" where query1 is the name/ID of the compound(s) queried. Numbers closer to zero represent more similar structures.
-\
+
 A demo/test is provided in the repo. Within the molbeam_test directory is a cxsmiles file containing ~1M smiles strings. Each directory within the molbeam_test dir has the intermediate parquet database files. The molbeam_test/query_results contains example output. The queries for the demo are taken directly from the cxsmiles file in an attempt to demonstrate that the fingerprint search will identify them and related compounds. 
 \
 In order to run the tests execute the following:

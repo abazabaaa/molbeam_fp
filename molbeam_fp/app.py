@@ -67,7 +67,7 @@ def main():
         data.append(arr)
         col_names.append(col_name)
     table = pa.Table.from_arrays(data, names=col_names)
-    pq.write_table(table, 'test_results.parquet')
+    pq.write_table(table, f'{output_dir}/all_fp_scores.parquet')
 
     rel = duckdb.arrow(table)
 
